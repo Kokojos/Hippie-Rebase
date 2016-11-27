@@ -100,7 +100,7 @@
 		if(1)
 			src.ReplaceWithLattice()
 		if(2)
-			src.ChangeTurf(/turf/open/floor/plating)
+			src.ChangeTurf(/turf/simulated/floor/plating)
 		if(3)
 			return
 
@@ -125,6 +125,8 @@
 		W.RemoveLattice()
 	W.levelupdate()
 	W.CalculateAdjacentTurfs()
+
+
 
 //put people in water, including you
 /turf/simulated/pool/water/MouseDrop_T(mob/M as mob, mob/user as mob)
@@ -175,7 +177,8 @@
 				else
 					H.visible_message("<span class='danger'>[H] falls in the drained pool, and cracks his skull!</span>",
 												"<span class='userdanger'>You fall in the drained pool, and crack your skull!</span>")
-					H.apply_damage(15, BRUTE, "head")
+					var/obj/item/organ/limb/O = H.get_organ("head") //NT makes the most dangerous pools : they aim for the head.
+					H.apply_damage(15, BRUTE, O)
 					H.Weaken(10) // This should hurt. And it does.
 					H.adjustBrainLoss(30) //herp
 					H.swimming = 1
